@@ -12,6 +12,13 @@
 
 <script setup lang="ts">
 // import Content from '@/Layout/Content/index.vue';
+import request from '@/utils/request'
+import { onMounted } from "vue";
+onMounted(
+  () => {
+    request.get('/hosp/hospital/1/10').then((res) => { console.log(res) })
+  }
+)
 </script>
 
 <style scoped lang="scss">
@@ -19,7 +26,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
 
   .content {
     margin-top: 70px;
