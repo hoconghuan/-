@@ -10,6 +10,4 @@ import zhCn from "element-plus/dist/locale/zh-cn.mjs";
 
 createApp(App)
   .use(ElementPlus, { locale: zhCn })
-  .use(router)
-
-  .mount("#app");
+  .use(router).mount("#app");
