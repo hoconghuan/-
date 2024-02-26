@@ -7,11 +7,12 @@
                 <Level></Level>
                 <Region></Region>
                 <div class="detail">
-                    <Card class="card" v-for="item in 10"></Card>
+                    <Card class="card" v-for="item in hospitalList" :key='item.id' :hospitalInfo='item'></Card>
                 </div>
                 <div class="pagnation">
                     <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize"
-                        :page-sizes="[10, 20, 30, 40]" layout=" prev, pager, next, jumper, sizes,total" :total="40" />
+                        :page-sizes="[10, 20, 30, 40]" layout=" prev, pager, next, jumper, sizes,total"
+                        :total="totalHisptal" @change='changePage' />
                 </div>
             </el-col>
         </el-row>
@@ -34,10 +35,19 @@ onMounted(() => {
 const getHaspitalInfo
     = async () => {
         let result: any = await getHospitalList(currentPage.value, pageSize.value)
-        console.log(result);
+        // console.log(result.data);
+        if (result.code === 200) {
+            hospitalList.value = result.data.content
+            totalHisptal.value = result.data.totalElements
+        }
     }
 
+let hospitalList = ref<object[]>([])
+let totalHisptal = ref(0)
+const changePage = () => {
+    getHaspitalInfo()
 
+}
 </script>
 
 <style lang="scss" scoped>
