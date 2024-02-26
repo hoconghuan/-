@@ -24,9 +24,19 @@ import Search from '@/Pages/Home/Search/index.vue';
 import Level from '@/Pages/Home/Level/index.vue';
 import Region from '@/Pages/Home/Region/index.vue';
 import Card from '@/Pages/Home/Card/index.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { getHospitalList } from '@/api/home';
 let currentPage = ref<number>(1);
 let pageSize = ref<number>(10);
+onMounted(() => {
+    getHaspitalInfo()
+})
+const getHaspitalInfo
+    = async () => {
+        let result: any = await getHospitalList(currentPage.value, pageSize.value)
+        console.log(result);
+    }
+
 
 </script>
 

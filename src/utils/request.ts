@@ -1,18 +1,20 @@
 import axios from "axios";
 
-const requ = axios.create({
+const request = axios.create({
   baseURL: "/api",
-  timeout: 10000,
+  timeout: 5000,
 });
 
-requ.interceptors.request.use((config) => {
+request.interceptors.request.use((config) => {
   return config;
 });
 
-requ.interceptors.response.use(
-  (response) => response,
+request.interceptors.response.use(
+  (response) => {
+    return response.data;
+  },
   (err) => {
     return Promise.reject(err.message);
   }
 );
-export default requ;
+export default request;

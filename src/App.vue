@@ -1,7 +1,7 @@
 <template>
   <Header></Header>
   <div class="container">
-    <header></header>
+    <!-- <header></header> -->
     <div class="content">
       <!-- <Content></Content> -->
       <router-view></router-view>
@@ -13,14 +13,17 @@
 <script setup lang="ts">
 import Header from "@/Layout/Header/index.vue";
 import Footer from "@/Layout/Footer/index.vue";
-// import Content from '@/Layout/Content/index.vue';
-import request from '@/utils/request'
-import { onMounted } from "vue";
-onMounted(
-  () => {
-    request.get('/hosp/hospital/1/10').then((res) => { console.log(res) })
-  }
-)
+// 
+// import request from '@/utils/request'
+
+// import { onMounted } from "vue";
+// onMounted(
+//   () => {
+//     request.get('/hosp/hospital/1/10').then((res) => { console.log(res) })
+
+
+//   }
+// )
 </script>
 
 <style scoped lang="scss">
