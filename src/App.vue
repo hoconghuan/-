@@ -1,16 +1,18 @@
 <template>
+  <Header></Header>
   <div class="container">
-    <Header></Header>
+    <header></header>
     <div class="content">
       <!-- <Content></Content> -->
       <router-view></router-view>
     </div>
-
     <Footer></Footer>
   </div>
 </template>
 
 <script setup lang="ts">
+import Header from "@/Layout/Header/index.vue";
+import Footer from "@/Layout/Footer/index.vue";
 // import Content from '@/Layout/Content/index.vue';
 import request from '@/utils/request'
 import { onMounted } from "vue";
