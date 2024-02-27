@@ -3,16 +3,12 @@
     <div class="content">
       <div class="left">地区:</div>
       <ul>
-        <li :class="{ active: activeFlag == '0' }" @click="changeRegion('0')">
+        <li :class="{ active: activeFlag == '' }" @click="changeRegion('')">
           全部
         </li>
 
-        <li
-          v-for="item in regionArr"
-          :key="item.id"
-          :class="{ active: activeFlag == item.value }"
-          @click="changeRegion(item.value)"
-        >
+        <li v-for="item in regionArr" :key="item.id" :class="{ active: activeFlag == item.value }"
+          @click="changeRegion(item.value)">
           {{ item.name }}
         </li>
       </ul>
@@ -28,22 +24,22 @@ import type {
 } from "@/api/home/type";
 import { onMounted, ref } from "vue";
 let regionArr = ref<HospitalLevelAndRegionArr>([]);
-let activeFlag = ref<string>("0");
+let activeFlag = ref<string>("");
 
-let $emit = defineEmits(["changeRegion"]);
+let $emit = defineEmits(["getRegion"]);
 onMounted(() => {
   getRegion();
 });
 const getRegion = async () => {
   const res: HospitalLevelAndRegionResponseData =
     await getHospitalLevelAndRegion("beijin");
-  console.log(res);
+  // console.log(res);
   regionArr.value = res.data;
 };
 
 const changeRegion = (value: string) => {
   activeFlag.value = value;
-  $emit("changeRegion", value);
+  $emit("getRegion", value);
 };
 </script>
 
@@ -81,3 +77,4 @@ const changeRegion = (value: string) => {
   }
 }
 </style>
+@/api/home/type copy

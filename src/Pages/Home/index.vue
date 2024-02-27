@@ -6,9 +6,10 @@
             <el-col :span="20">
                 <Level @getLevel="getLevel"></Level>
                 <Region @getRegion="getRegion"></Region>
-                <div class="detail">
+                <div class="detail" v-if="hospitalList.length > 0">
                     <Card class="card" v-for="item in hospitalList" :key='item.id' :hospitalInfo='item'></Card>
                 </div>
+                <el-empty v-else description="暂无数据" />
                 <div class="pagnation">
                     <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize"
                         :page-sizes="[10, 20, 30, 40]" layout=" prev, pager, next, jumper, sizes,total"
@@ -36,7 +37,7 @@ onMounted(() => {
 // 获取请求
 const getHaspitalInfo
     = async () => {
-        let result: HospitalResponseData = await getHospitalList(currentPage.value, pageSize.value)
+        let result: HospitalResponseData = await getHospitalList(currentPage.value, pageSize.value, hostype.value, districtCode.value)
         // console.log(result.data);
         if (result.code === 200) {
             hospitalList.value = result.data.content
@@ -46,13 +47,21 @@ const getHaspitalInfo
 
 let hospitalList = ref<HospitalList>([])
 let totalHisptal = ref(0)
+let hostype = ref<string>('')
+let districtCode = ref<string>('')
 
 // 分页效果
 const changePage = () => {
     getHaspitalInfo()
 }
-const getLevel = () => { }
-const getRegion = () => { }
+const getLevel = (level: string) => {
+    hostype.value = level
+    getHaspitalInfo()
+}
+const getRegion = (region: string) => {
+    districtCode.value = region
+    getHaspitalInfo()
+}
 
 </script>
 
@@ -73,4 +82,4 @@ const getRegion = () => { }
     display: flex;
     justify-content: center;
 }
-</style>
+</style>@/api/home/type copy

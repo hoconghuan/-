@@ -4,15 +4,11 @@
     <div class="content">
       <div class="left">等级:</div>
       <ul>
-        <li :class="{ active: activeFlag == '0' }" @click="changeLevel('0')">
+        <li :class="{ active: activeFlag == '' }" @click="changeLevel('')">
           全部
         </li>
-        <li
-          v-for="item in levelArr"
-          :class="{ active: activeFlag == item.value }"
-          @click="changeLevel(item.value)"
-          :key="item.id"
-        >
+        <li v-for="item in levelArr" :class="{ active: activeFlag == item.value }" @click="changeLevel(item.value)"
+          :key="item.id">
           {{ item.name }}
         </li>
       </ul>
@@ -28,8 +24,8 @@ import type {
 } from "@/api/home/type";
 import { onMounted, ref } from "vue";
 let levelArr = ref<HospitalLevelAndRegionArr>([]);
-let activeFlag = ref<string>("0");
-let $emit = defineEmits(["changeLevel"]);
+let activeFlag = ref<string>("");
+let $emit = defineEmits(["getLevel"]);
 onMounted(() => {
   getLevel();
 });
@@ -44,7 +40,7 @@ const getLevel = async () => {
 const changeLevel = (value: string) => {
   activeFlag.value = value;
   //   console.log(activeFlag.value);
-  $emit("changeLevel", activeFlag.value);
+  $emit("getLevel", value);
 };
 </script>
 
