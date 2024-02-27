@@ -29,6 +29,8 @@ import type {
 import { onMounted, ref } from "vue";
 let regionArr = ref<HospitalLevelAndRegionArr>([]);
 let activeFlag = ref<string>("0");
+
+let $emit = defineEmits(["changeRegion"]);
 onMounted(() => {
   getRegion();
 });
@@ -41,6 +43,7 @@ const getRegion = async () => {
 
 const changeRegion = (value: string) => {
   activeFlag.value = value;
+  $emit("changeRegion", value);
 };
 </script>
 
