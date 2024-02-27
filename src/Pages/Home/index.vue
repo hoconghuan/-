@@ -4,8 +4,8 @@
         <Search></Search>
         <el-row>
             <el-col :span="20">
-                <Level></Level>
-                <Region></Region>
+                <Level @getLevel="getLevel"></Level>
+                <Region @getRegion="getRegion"></Region>
                 <div class="detail">
                     <Card class="card" v-for="item in hospitalList" :key='item.id' :hospitalInfo='item'></Card>
                 </div>
@@ -25,6 +25,7 @@ import Search from '@/Pages/Home/Search/index.vue';
 import Level from '@/Pages/Home/Level/index.vue';
 import Region from '@/Pages/Home/Region/index.vue';
 import Card from '@/Pages/Home/Card/index.vue';
+import type { HospitalResponseData, HospitalList } from "@/api/home/type";
 import { onMounted, ref } from 'vue';
 import { getHospitalList } from '@/api/home';
 let currentPage = ref<number>(1);
@@ -32,9 +33,10 @@ let pageSize = ref<number>(10);
 onMounted(() => {
     getHaspitalInfo()
 })
+// 获取请求
 const getHaspitalInfo
     = async () => {
-        let result: any = await getHospitalList(currentPage.value, pageSize.value)
+        let result: HospitalResponseData = await getHospitalList(currentPage.value, pageSize.value)
         // console.log(result.data);
         if (result.code === 200) {
             hospitalList.value = result.data.content
@@ -42,12 +44,16 @@ const getHaspitalInfo
         }
     }
 
-let hospitalList = ref<object[]>([])
+let hospitalList = ref<HospitalList>([])
 let totalHisptal = ref(0)
+
+// 分页效果
 const changePage = () => {
     getHaspitalInfo()
-
 }
+const getLevel = () => { }
+const getRegion = () => { }
+
 </script>
 
 <style lang="scss" scoped>

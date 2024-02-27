@@ -1,12 +1,11 @@
-import * as exp from "constants";
-
 // 定义接口
 export interface ResponseData {
-  code: string;
+  code: number;
   message: string;
 
   ok: boolean;
 }
+
 //定义医院
 export interface Hospital {
   id: string;
@@ -36,13 +35,12 @@ export interface Hospital {
     rule: string[];
   };
 }
-
 // 定义医院数组
 export type HospitalList = Hospital[];
-
+//定义医院返回数据
 export interface HospitalResponseData extends ResponseData {
   data: {
-    content: HospitalList;
+    content: HospitalList; //数据在这里。
     pageable: {
       sort: {
         sorted: boolean;
@@ -69,4 +67,24 @@ export interface HospitalResponseData extends ResponseData {
     number: number;
     empty: boolean;
   };
+}
+
+// 医院等级及类型
+export interface HospitalLevelAndRegion {
+  createTime: string;
+  dictCode: string;
+  hasChildren: boolean;
+  id: number;
+  isDeleted: number;
+  name: string;
+  param: {};
+  parentId: number;
+  updateTime: string;
+  value: string;
+}
+// 医院等级及类型数组
+export type HospitalLevelAndRegionArr = HospitalLevelAndRegion[];
+// 医院返回等级及类型数组
+export interface HospitalLevelAndRegionResponseData extends ResponseData {
+  data: HospitalLevelAndRegionArr;
 }

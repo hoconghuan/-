@@ -5,18 +5,26 @@
             <div class="left">等级:</div>
             <ul>
                 <li class="active">全部</li>
-                <li>三级甲等</li>
-                <li>三级甲等</li>
-                <li>三级甲等</li>
-                <li>三级甲等</li>
-                <li>三级甲等</li>
+                <li v-for="item in levelArr">{{ item.name }}</li>
+
             </ul>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-
+import { getHospitalLevelAndRegion } from '@/api/home/index';
+import type { HospitalLevelAndRegionResponseData, HospitalLevelAndRegionArr } from '@/api/home/type';
+import { onMounted, ref } from 'vue';
+let levelArr = ref<HospitalLevelAndRegionArr>([])
+onMounted(() => {
+    getLevel()
+})
+const getLevel = async () => {
+    const res: HospitalLevelAndRegionResponseData = await getHospitalLevelAndRegion("HosType")
+    console.log(res)
+    levelArr.value = res.data
+}
 </script>
 
 <style scoped lang="scss">
