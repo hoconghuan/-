@@ -88,7 +88,6 @@ export interface HospitalLevelAndRegionResponseData extends ResponseData {
   data: HospitalLevelAndRegionArr;
 }
 
-// 搜索信息
 export interface SearchInfo extends ResponseData {
   data: HospitalList;
 }

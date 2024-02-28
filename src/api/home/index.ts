@@ -8,7 +8,7 @@ import type {
 enum API {
   hospitalUrl = "/hosp/hospital/",
   hospitalLevelAndRegionUrl = "/cmn/dict/findByDictCode/",
-  hospitalListUrl = "/hosp/hospital/findHospList/",
+  hospitalListUrl = "/hosp/hospital/findByHosname/",
 }
 export const getHospitalList = (
   num: number,
@@ -37,6 +37,6 @@ export const getHospitalLevelAndRegion = (dictCode: string) => {
   );
 };
 
-export const getHospitalListByName = (name: string) => {
-  return request.get<string, SearchInfo>(`${API.hospitalListUrl}${name}`);
+export const getHospitalListByName = (hosname: string) => {
+  return request.get<string, SearchInfo>(`${API.hospitalListUrl}${hosname}`);
 };
