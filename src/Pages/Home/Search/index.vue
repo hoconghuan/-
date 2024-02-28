@@ -1,13 +1,7 @@
 <template>
   <div class="container">
-    <el-autocomplete
-      clearable
-      :trigger-on-focus="false"
-      placeholder="Please Input"
-      v-model="hosname"
-      :fetch-suggestions="getData"
-      @select="handleSelect"
-    />
+    <el-autocomplete clearable :trigger-on-focus="false" placeholder="Please Input" v-model="hosname"
+      :fetch-suggestions="getData" @select="handleSelect" />
     <el-button type="primary" size="default" :icon="Search">搜索</el-button>
   </div>
 </template>
@@ -16,7 +10,7 @@
 import { Search } from "@element-plus/icons-vue";
 import { ref } from "vue";
 import { getHospitalListByName } from "@/api/home";
-import type { SearchInfo } from "@/api/home/type";
+import type { SearchInfo, Hospital } from "@/api/home/type";
 import { useRouter } from "vue-router";
 let hosname = ref<string>("");
 let $router = useRouter();
@@ -31,9 +25,9 @@ const getData = async (queryString: string, cb: any) => {
   });
   cb(data);
 };
-const handleSelect = () => {
+const handleSelect = (item: Hospital) => {
   $router.push({
-    path: "/hospital/",
+    path: "/hospital/", query: { hoscode: item.hoscode }
   });
 };
 </script>
