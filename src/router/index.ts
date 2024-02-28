@@ -14,31 +14,38 @@ export const router = createRouter({
       component: () => import("@/Pages/Hospital/index.vue"),
       children: [
         {
+          //登记
           path: "register",
           name: "register",
           component: () => import("@/Pages/Hospital/register/index.vue"),
         },
         {
-          path: "check",
-          name: "check",
-          component: () => import("@/Pages/Hospital/check/index.vue"),
-        },
-        {
-          path: "hospitalDetail",
-          name: "hospitalDetail",
-          component: () => import("@/Pages/Hospital/hospitalDetail/index.vue"),
-        },
-        {
+          // 详情
           path: "information",
           name: "information",
           component: () => import("@/Pages/Hospital/information/index.vue"),
         },
         {
+          //预约
+          path: "appointment",
+          name: "appointment",
+          component: () => import("@/Pages/Hospital/appointment/index.vue"),
+        },
+
+        {
+          //诊断
           path: "diagnose",
           name: "diagnose",
           component: () => import("@/Pages/Hospital/diagnose/index.vue"),
         },
+        {
+          // 确认
+          path: "check",
+          name: "check",
+          component: () => import("@/Pages/Hospital/check/index.vue"),
+        },
       ],
+      redirect: "/hospital/register",
     },
     {
       path: "/home",

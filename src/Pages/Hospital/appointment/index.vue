@@ -1,5 +1,5 @@
 <template>
-  <div>hospitalDetail</div>
+  <div>appointment</div>
 </template>
 
 <script setup lang="ts"></script>

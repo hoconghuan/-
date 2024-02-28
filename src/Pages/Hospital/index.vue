@@ -4,24 +4,28 @@
       <div class="top">
         <el-icon> <HomeFilled /> </el-icon><span> / 医院信息</span>
       </div>
-      <el-menu :default-active="$route.path" class="el-menu-vertical-demo">
+      <el-menu
+        :router="true"
+        default-active="/hospital/register"
+        class="el-menu-vertical-demo"
+      >
         <el-menu-item index="/hospital/register">
           <el-icon><icon-menu /></el-icon>
           <span>预约挂号</span>
         </el-menu-item>
-        <el-menu-item index="/hospital/detail">
+        <el-menu-item index="/hospital/information">
           <el-icon><document /></el-icon>
           <span>医院详情</span>
         </el-menu-item>
-        <el-menu-item index="/hospital/notice">
+        <el-menu-item index="/hospital/appointment">
           <el-icon><setting /></el-icon>
           <span>预约通知</span>
         </el-menu-item>
-        <el-menu-item index="/hospital/close">
+        <el-menu-item index="/hospital/diagnose">
           <el-icon><InfoFilled /></el-icon>
           <span>停诊信息</span>
         </el-menu-item>
-        <el-menu-item index="/hospital/search">
+        <el-menu-item index="/hospital/check">
           <el-icon><Search /></el-icon>
           <span>查询/取消</span>
         </el-menu-item>

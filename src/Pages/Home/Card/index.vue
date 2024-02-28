@@ -64,9 +64,7 @@
 import { useRouter } from "vue-router";
 let $router = useRouter();
 defineProps(["hospitalInfo"]);
-const getDetail = (a) => {
-  console.log(a);
-
+const getDetail = () => {
   $router.push({
     path: "/hospital/",
   });
