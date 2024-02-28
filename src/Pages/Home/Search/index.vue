@@ -31,7 +31,7 @@ const getData = async (queryString: string, cb: any) => {
   });
   cb(data);
 };
-const handleSelect = (item: any) => {
+const handleSelect = () => {
   $router.push({
     path: "/hospital/",
   });

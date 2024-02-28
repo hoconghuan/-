@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card shadow="hover" class="box-card" @click="getDetail">
+    <el-card shadow="hover" class="box-card" @click="getDetail(hospitalInfo)">
       <div class="content">
         <div class="left">
           <div class="name">{{ hospitalInfo.hosname }}</div>
@@ -64,8 +64,9 @@
 import { useRouter } from "vue-router";
 let $router = useRouter();
 defineProps(["hospitalInfo"]);
+const getDetail = (a) => {
+  console.log(a);
 
-const getDetail = () => {
   $router.push({
     path: "/hospital/",
   });

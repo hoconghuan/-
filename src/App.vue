@@ -1,13 +1,13 @@
 <template>
-  <Header></Header>
   <div class="container">
+    <Header></Header>
     <div class="content">
       <router-view></router-view>
     </div>
     <Footer></Footer>
   </div>
 </template>
-  
+
 <script setup lang="ts">
 import Header from "@/Layout/Header/index.vue";
 import Footer from "@/Layout/Footer/index.vue";
@@ -17,7 +17,6 @@ import Footer from "@/Layout/Footer/index.vue";
 // onMounted(
 //   () => {
 //     request.get('/hosp/hospital/1/10').then((res) => { console.log(res) })
-
 
 //   }
 // )
@@ -32,7 +31,7 @@ import Footer from "@/Layout/Footer/index.vue";
   .content {
     margin-top: 70px;
     width: 1200px;
-    height: 1200PX;
+    height: 1200px;
   }
 }
 </style>
