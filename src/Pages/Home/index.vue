@@ -97,4 +97,3 @@ const getRegion = (region: string) => {
   justify-content: center;
 }
 </style>
-@/api/home/type copy

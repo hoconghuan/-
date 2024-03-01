@@ -31,7 +31,7 @@ import Footer from "@/Layout/Footer/index.vue";
   .content {
     margin-top: 70px;
     width: 1200px;
-    height: 1200px;
+    min-height: 800px;
   }
 }
 </style>
