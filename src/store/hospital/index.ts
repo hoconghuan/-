@@ -9,9 +9,9 @@ export const useStore = defineStore("info", () => {
   const getCode = async (hoscode: string) => {
     let result: HospitalData = await reqHospital(hoscode);
     if (result.code == 200) {
-      console.log("result", result.data);
+      // console.log("result", result.data);
       hospitalInfo.value = result.data;
-      console.log("hospitalInfo", hospitalInfo.value);
+      // console.log("hospitalInfo", hospitalInfo.value);
     }
   };
   return { hospitalInfo, getCode };
