@@ -46,6 +46,17 @@ import {
   Search,
   HomeFilled,
 } from "@element-plus/icons-vue";
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { useStore } from "@/store/hospital"; //const useStore: StoreDefinition<"info", 拿到的是pinia设置存储useStore函数。
+let getDtail = useStore(); // 执行pinia中的useStore函数，并拿到返回值赋值给getDtail
+
+let $route = useRoute();
+// console.log($route);
+
+onMounted(() => {
+  getDtail.getCode($route.query.hoscode as string);
+});
 </script>
 
 <style lang="scss" scoped>

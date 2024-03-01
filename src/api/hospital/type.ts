@@ -4,7 +4,7 @@ interface RootObject {
   ok: boolean;
 }
 
-interface Data {
+export interface Data {
   bookingRule: {
     cycle: number;
     releaseTime: string;
@@ -36,6 +36,6 @@ interface Data {
     bookingRule?: any;
   };
 }
-interface HospitalData extends RootObject {
+export interface HospitalData extends RootObject {
   data: Data;
 }
