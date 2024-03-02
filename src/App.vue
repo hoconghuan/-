@@ -29,9 +29,9 @@ import Footer from "@/Layout/Footer/index.vue";
   align-items: center;
 
   .content {
-    margin-top: 70px;
+    margin-top: 90px;
     width: 1200px;
-    min-height: 800px;
+    min-height: 730px;
   }
 }
 </style>
