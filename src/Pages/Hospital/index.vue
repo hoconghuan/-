@@ -67,7 +67,7 @@ onMounted(() => {
   getDtail.getCode($route.query.hoscode as string);
 });
 const handleSelect = (index: string) => { $router.push({ path: index, query: { hoscode: $route.query.hoscode } }) }
-// 当使用第三方插件时一定要把它的特性、方法、属性都认真看一遍。比如这里尚硅谷老师用了事件循环，然后才传递query参数。但是elementplus里面写了"router'属性，不用再单独设path，在事件循环里人家也写了select函数来传递query参数。 
+// 当使用第三方插件时一定要把它的特性、方法、属性都认真看一遍。比如这里尚硅谷老师用了事件循环，然后才传递query参数。但是elementplus里面写了"router'属性，不用再单独设path，在事件循环里人家也写了select函数来传递query参数。 c:\Users\ho\Desktop\syt\src\pages\hospital\search\index.vue
 </script>
 
 <style lang="scss" scoped>
