@@ -39,3 +39,14 @@ export interface Data {
 export interface HospitalData extends RootObject {
   data: Data;
 }
+
+export interface Datum {
+  depcode: string;
+  depname: string;
+  children?: Datum[];
+}
+export type OfficeData = Datum[];
+
+export interface DepartmentData extends RootObject {
+  data: OfficeData;
+}

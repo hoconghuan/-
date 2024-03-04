@@ -2,11 +2,14 @@
   <div class="hospital">
     <div class="menu">
       <div class="top">
-        <el-icon>
-          <HomeFilled />
-        </el-icon><span> / 医院信息</span>
+        <el-icon> <HomeFilled /> </el-icon><span> / 医院信息</span>
       </div>
-      <el-menu @select="handleSelect" :router="true" default-active="/hospital/register" class="el-menu-vertical-demo">
+      <el-menu
+        @select="handleSelect"
+        :router="true"
+        default-active="/hospital/register"
+        class="el-menu-vertical-demo"
+      >
         <el-menu-item index="/hospital/register">
           <el-icon><icon-menu /></el-icon>
           <span>预约挂号</span>
@@ -58,15 +61,18 @@ import { useStore } from "@/store/hospital"; //const useStore: StoreDefinition<"
 let getDtail = useStore(); // 执行pinia中的useStore函数，并拿到返回值赋值给getDtail
 
 let $route = useRoute();
-let $router = useRouter()
-console.log('router', $router);
+let $router = useRouter();
+// console.log('router', $router);
 
-console.log('route', $route);
+// console.log('route', $route);
 
 onMounted(() => {
   getDtail.getCode($route.query.hoscode as string);
+  getDtail.getDepartment($route.query.hoscode as string);
 });
-const handleSelect = (index: string) => { $router.push({ path: index, query: { hoscode: $route.query.hoscode } }) }
+const handleSelect = (index: string) => {
+  $router.push({ path: index, query: { hoscode: $route.query.hoscode } });
+};
 // 当使用第三方插件时一定要把它的特性、方法、属性都认真看一遍。比如这里尚硅谷老师用了事件循环，然后才传递query参数。但是elementplus里面写了"router'属性，不用再单独设path，在事件循环里人家也写了select函数来传递query参数。 c:\Users\ho\Desktop\syt\src\pages\hospital\search\index.vue
 </script>
 

@@ -45,6 +45,8 @@
 
 import { useStore } from "@/store/hospital";
 let hospitalStore = useStore();
+
+
 </script>
 
 <style scoped lang="scss">
