@@ -2,14 +2,11 @@
   <div class="hospital">
     <div class="menu">
       <div class="top">
-        <el-icon> <HomeFilled /> </el-icon><span> / 医院信息</span>
+        <el-icon>
+          <HomeFilled />
+        </el-icon><span> / 医院信息</span>
       </div>
-      <el-menu
-        @select="handleSelect"
-        :router="true"
-        default-active="/hospital/register"
-        class="el-menu-vertical-demo"
-      >
+      <el-menu @select="handleSelect" :router="true" default-active="/hospital/register" class="el-menu-vertical-demo">
         <el-menu-item index="/hospital/register">
           <el-icon><icon-menu /></el-icon>
           <span>预约挂号</span>
@@ -63,8 +60,8 @@ let getDtail = useStore(); // 执行pinia中的useStore函数，并拿到返回�
 let $route = useRoute();
 let $router = useRouter();
 // console.log('router', $router);
-
 // console.log('route', $route);
+
 
 onMounted(() => {
   getDtail.getCode($route.query.hoscode as string);
@@ -91,6 +88,7 @@ const handleSelect = (index: string) => {
       color: #7f7f7f;
       font-size: 1rem;
       align-items: center;
+
     }
   }
 
