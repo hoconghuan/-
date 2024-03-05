@@ -15,37 +15,39 @@ export const router = createRouter({
       children: [
         {
           //登记
-          path: "register",
-          name: "register",
-          component: () => import("@/Pages/Hospital/register/index.vue"),
+          path: "appointment_register",
+          name: "appointment_register",
+          component: () =>
+            import("@/Pages/Hospital/appointment_register/index.vue"),
         },
         {
           // 详情
-          path: "information",
-          name: "information",
-          component: () => import("@/Pages/Hospital/information/index.vue"),
+          path: "hospital_info",
+          name: "hospital_info",
+          component: () => import("@/Pages/Hospital/hospital_info/index.vue"),
         },
         {
           //预约
-          path: "appointment",
-          name: "appointment",
-          component: () => import("@/Pages/Hospital/appointment/index.vue"),
+          path: "appointment_info",
+          name: "appointment_info",
+          component: () =>
+            import("@/Pages/Hospital/appointment_info/index.vue"),
         },
 
         {
           //诊断
-          path: "diagnose",
-          name: "diagnose",
-          component: () => import("@/Pages/Hospital/diagnose/index.vue"),
+          path: "diagnose_info",
+          name: "diagnose_info",
+          component: () => import("@/Pages/Hospital/diagnose_info/index.vue"),
         },
         {
           // 确认
-          path: "check",
-          name: "check",
-          component: () => import("@/Pages/Hospital/check/index.vue"),
+          path: "check_cancel",
+          name: "check_cancel",
+          component: () => import("@/Pages/Hospital/check_cancel/index.vue"),
         },
       ],
-      redirect: "/hospital/register",
+      redirect: "/hospital/appointment_register",
     },
     {
       path: "/home",

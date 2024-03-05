@@ -48,7 +48,7 @@
     </div>
     <!-- 放置每一个医院的科室的数据 -->
     <div class="department">
-      <el-row class="tac">
+      <el-row>
         <el-col :span="6">
           <el-menu default-active="4" @select="handleSelect" class="el-menu-vertical-demo"
             v-for="item in storeInfo.hospitalDepartmentArr">
@@ -58,18 +58,21 @@
           </el-menu>
         </el-col>
         <el-col :span="18">
-          <el-menu default-active="2" class="el-menu-vertical-demo" v-for="item in storeInfo.hospitalDepartmentArr">
-            <el-menu-item :index="item.depcode">
-              <span>{{ item.depname }}</span>
-
-            </el-menu-item>
-          </el-menu>
-          <el-row>
-            <el-col :span="8" v-for="item in storeInfo.hospitalDepartmentArr[2]">
-              <span>{{ item?.depname }}</span>
-            </el-col>
-          </el-row>
+          <!-- 对于数组中的子数组遍历，只能用嵌套的形式进行，没有其他办法。没有捷径才是捷径。 -->
+          <div class="deparmentInfo">
+            <!-- 用一个div代表:大科室与小科室 -->
+            <div class="showDeparment" v-for="item in storeInfo.hospitalDepartmentArr" :key="item.depcode">
+              <h1 class="cur">{{ item.depname }}</h1>
+              <!-- 每一个大的科室下小科室 -->
+              <ul>
+                <li @click="" v-for="de in item.children" :key="item.depcode">
+                  {{ de.depname }}
+                </li>
+              </ul>
+            </div>
+          </div>
         </el-col>
+
       </el-row>
     </div>
   </div>
@@ -143,6 +146,35 @@ const handleSelect = (index: string) => {
     }
   }
 
-  .deparment {}
+  .deparment {
+    .deparmentInfo {
+      flex: 1;
+      margin-left: 20px;
+      height: 100%;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .showDeparment {
+        h1 {
+          background-color: rgb(248, 248, 248);
+          color: #7f7f7f;
+        }
+
+        ul {
+          display: flex;
+          flex-wrap: wrap;
+
+          li {
+            color: #7f7f7f;
+            width: 33%;
+            line-height: 30px;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
