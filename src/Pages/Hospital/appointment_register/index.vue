@@ -68,25 +68,24 @@
     <div class="department">
       <el-row>
         <el-col :span="6">
-          <el-menu
-            default-active="4"
-            @select="handleSelect"
-            class="el-menu-vertical-demo"
-            v-for="item in storeInfo.hospitalDepartmentArr"
-            style="border: 0"
-          >
-            <el-menu-item :index="item.depcode">
+          <el-menu default-active="1" class="el-menu-vertical-demo">
+            <el-menu-item
+              :index="item.depcode"
+              @select="handleSelect"
+              v-for="item in storeInfo.hospitalDepartmentArr"
+            >
               <span>{{ item.depname }}</span>
             </el-menu-item>
           </el-menu>
         </el-col>
-        <el-col :span="18" class="detail">
+        <el-col :span="18">
           <!-- 对于数组中的子数组遍历，只能用嵌套的形式进行，没有其他办法。没有捷径才是捷径。 -->
           <el-row>
             <el-col
               :span="24"
               v-for="item in storeInfo.hospitalDepartmentArr"
               :key="item.depcode"
+              class="departmentInfo"
             >
               <div class="item">{{ item.depname }}</div>
               <el-row>
@@ -94,7 +93,6 @@
                   :span="8"
                   v-for="detaildep in item.children"
                   :key="detaildep.depcode"
-                  @click="handleClick(detaildep)"
                   style="cursor: pointer"
                 >
                   <!-- 循环作用在对应特定点上才能改变对应样式 -->
@@ -175,19 +173,30 @@ const handleSelect = (index: string) => {};
       }
     }
   }
-}
-.department {
-  .el-menu-vertical-demo {
-    span {
-      font-size: 18px;
+  .department {
+    .el-menu-vertical-demo {
+      border: 0;
+      span {
+        font-size: 18px;
+      }
+    }
+    .departmentInfo {
+      .item {
+        height: 50px;
+        line-height: 50px;
+        font-weight: bold;
+      }
+      .detail {
+        height: 40px;
+        line-height: 40px;
+        &:hover {
+          background-color: #ccc;
+          color: white;
+        }
+      }
     }
   }
-  .item {
-    margin: 10px 0px;
-    font-weight: bold;
-  }
-  .detail {
-    margin: 10px 0px;
-  }
+}
+.active {
 }
 </style>
