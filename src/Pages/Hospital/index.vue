@@ -2,7 +2,9 @@
   <div class="hospital">
     <div class="menu">
       <div class="top">
-        <el-icon> <HomeFilled /> </el-icon><span> / 医院信息</span>
+        <el-icon>
+          <HomeFilled />
+        </el-icon><span> / 医院信息</span>
       </div>
       <el-menu @select="handleSelect" :default-active="$route.path">
         <el-menu-item index="/hospital/appointment_register">
@@ -57,8 +59,8 @@ let getDtail = useStore(); // 执行pinia中的useStore函数，并拿到返回�
 
 let $route = useRoute();
 let $router = useRouter();
-console.log("router", $router);
-console.log("route", $route);
+// console.log("router", $router);
+// console.log("route", $route);
 
 onMounted(() => {
   getDtail.getCode($route.query.hoscode as string);

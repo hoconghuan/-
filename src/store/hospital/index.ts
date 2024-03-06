@@ -31,5 +31,6 @@ export const useStore = defineStore("hsopitalInfo", () => {
       hospitalDepartmentArr.value = result.data;
     }
   };
+
   return { hospitalInfo, getCode, getDepartment, hospitalDepartmentArr };
 });
