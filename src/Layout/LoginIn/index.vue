@@ -1,40 +1,54 @@
 <template>
-  <div class="container">
+  <div>
     <el-dialog
       v-model="userStore.visible"
       :append-to-body="true"
       title="用户登录注册"
-      ><el-row>
+    >
+      <el-row justify="center">
         <!-- 左侧解构:收集号码登录、微信扫一扫登录 -->
         <el-col :span="12">
-          <div class="login">
+          <div class="login" v-show="scene == 0">
             <el-form ref="form">
-              <el-form-item prop="phone">
+              <el-form-item prop="phone" style="width: 80%; margin: 0 auto">
                 <el-input
                   placeholder="请你输入手机号码"
                   :prefix-icon="User"
+                  v-model="loginParam.phone"
                 ></el-input>
               </el-form-item>
-              <el-form-item prop="code">
-                <el-row>
-                  <el-col :span="12">
+              <el-form-item>
+                <el-row justify="center" style="margin: 0 auto">
+                  <el-col :span="16">
                     <el-input
                       placeholder="请输入手机验证码"
                       :prefix-icon="Lock"
                     ></el-input></el-col
-                  ><el-col :span="12">
-                    <el-button>
+                  ><el-col :span="8">
+                    <el-button :disabled="!isPhone ? true : false">
                       <span>获取验证码</span>
                     </el-button></el-col
                   >
                 </el-row>
               </el-form-item>
             </el-form>
-            <el-button style="width: 80%" type="primary" size="default"
-              >用户登录</el-button
+            <div style="display: flex; justify-content: center">
+              <el-button style="width: 80%" type="primary" size="default"
+                >用户登录</el-button
+              >
+            </div>
+
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 20px;
+              "
             >
-            <div class="bottom">
-              <p>微信扫码登录</p>
+              <p style="margin-bottom: 20px" @click="changeScene">
+                微信扫码登录
+              </p>
               <svg
                 t="1685263287521"
                 class="icon"
@@ -57,11 +71,18 @@
                 ></path>
               </svg>
             </div>
-            <div class="webchat">
+            <div class="webchat" v-show="scene == 1">
               <!-- 在这个容器当中显示微信扫码登录页面 -->
               <div id="login_container"></div>
-              <div class="phone">
-                <p>手机短信验证码登录</p>
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                  margin-top: 20px;
+                "
+              >
+                <p style="margin-bottom: 20px">手机短信验证码登录</p>
                 <svg
                   t="1685676069573"
                   class="icon"
@@ -116,10 +137,10 @@
 
                 <p style="text-align: center">微信扫一扫关注</p>
                 <p style="text-align: center">“快速预约挂号”</p>
-              </div></el-col
-            >
-            <el-col :span="12"
-              ><div class="item">
+              </div>
+            </el-col>
+            <el-col :span="12">
+              <div class="item">
                 <img
                   src="../../assets/images/code_login_wechat.png"
                   alt=""
@@ -146,8 +167,8 @@
 
                 <p style="text-align: center">扫一扫下载</p>
                 <p style="text-align: center">“预约挂号”APP</p>
-              </div></el-col
-            >
+              </div>
+            </el-col>
           </el-row>
           <p
             style="
@@ -178,40 +199,20 @@
 <script setup lang="ts">
 import { User, Lock } from "@element-plus/icons-vue";
 import { useUserStore } from "@/store/user/index";
+import { ref, computed } from "vue";
+let scene = ref(0); //0为号码登陆，1为二维码登陆
+let loginParam = ref({
+  // ref在dom中是不需要。value来获取属性值的。
+  phone: "",
+});
+console.log(loginParam.value.phone);
+let isPhone = computed(() => {
+  const reg =
+    /^1((34[0-8])|(8\d{2})|(([35][0-35-9]|4[579]|66|7[35678]|9[1389])\d{1}))\d{7}$/;
+  return reg.test(loginParam.value.phone);
+});
 let userStore = useUserStore();
+const changeScene = () => {
+  scene.value = scene.value === 0 ? 1 : 0;
+};
 </script>
-
-<style scoped lang="scss">
-.container {
-  ::v-deep(.el-dialog__body) {
-    border-top: 1px solid red;
-    border-bottom: 1px solid red;
-  }
-
-  .login {
-    padding: 20px;
-    border: 1px solid #ccc;
-    .webchat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      .phone {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        p {
-          margin: 10px 0px;
-        }
-      }
-    }
-  }
-  .bottom {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    p {
-      margin: 10px 0px;
-    }
-  }
-}
-</style>
