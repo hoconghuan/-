@@ -5,12 +5,15 @@
       <router-view></router-view>
     </div>
     <Footer></Footer>
+    <LoginIn v-show="false"></LoginIn>
   </div>
 </template>
 
 <script setup lang="ts">
 import Header from "@/Layout/Header/index.vue";
 import Footer from "@/Layout/Footer/index.vue";
+import LoginIn from "@/layout/LoginIn/index.vue";
+
 // import request from '@/utils/request'
 
 // import { onMounted } from "vue";

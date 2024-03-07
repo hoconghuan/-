@@ -7,7 +7,7 @@
       </div>
       <div class="right">
         <div class="span1">帮助中心</div>
-        <div>登录/注册</div>
+        <div @click="login">登录/注册</div>
       </div>
     </div>
   </div>
@@ -16,8 +16,13 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 let $router = useRouter();
+import { useUserStore } from "@/store/user/index";
+let userStore = useUserStore();
 const getback = () => {
   $router.push("/");
+};
+const login = () => {
+  userStore.visible = true;
 };
 </script>
 
