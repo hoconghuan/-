@@ -17,7 +17,7 @@
                   v-model="loginParam.phone"
                 ></el-input>
               </el-form-item>
-              <el-form-item>
+              <el-form-item style="margin-top: 20px">
                 <el-row justify="center" style="margin: 0 auto">
                   <el-col :span="16">
                     <el-input
@@ -25,7 +25,7 @@
                       :prefix-icon="Lock"
                     ></el-input></el-col
                   ><el-col :span="8">
-                    <el-button :disabled="!isPhone ? true : false">
+                    <el-button :disabled="!isPhone" @click="getEMScode">
                       <span>获取验证码</span>
                     </el-button></el-col
                   >
@@ -200,12 +200,14 @@
 import { User, Lock } from "@element-plus/icons-vue";
 import { useUserStore } from "@/store/user/index";
 import { ref, computed } from "vue";
+import { reqGetesmCode } from "@/api/user/index";
+import type { ResponseData } from "@/api/user/type";
 let scene = ref(0); //0为号码登陆，1为二维码登陆
 let loginParam = ref({
   // ref在dom中是不需要。value来获取属性值的。
   phone: "",
 });
-console.log(loginParam.value.phone);
+
 let isPhone = computed(() => {
   const reg =
     /^1((34[0-8])|(8\d{2})|(([35][0-35-9]|4[579]|66|7[35678]|9[1389])\d{1}))\d{7}$/;
@@ -214,5 +216,9 @@ let isPhone = computed(() => {
 let userStore = useUserStore();
 const changeScene = () => {
   scene.value = scene.value === 0 ? 1 : 0;
+};
+const getCode = async(loginParam.value.phone:string)=>{ await reqGetesmCode(loginParam.value.phone)}
+const getEMScode = () => {
+  console.log(123);
 };
 </script>
