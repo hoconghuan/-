@@ -15,9 +15,8 @@
                     <el-input placeholder="请输入手机验证码" :prefix-icon="Lock"
                       v-model="loginParam.code"></el-input></el-col><el-col :span="8">
                     <el-button :disabled="!isPhone || flag" @click="getEMScode">
-                      <Countdown v-if="flag" :flag='flag' @getFlag="getFlag"></Countdown>
+                      <Countdown v-if="flag" :flag="flag" @getFlag="getFlag"></Countdown>
                       <span v-else>获取验证码</span>
-
                     </el-button></el-col>
                 </el-row>
               </el-form-item>
@@ -129,7 +128,7 @@
 </template>
 
 <script setup lang="ts">
-import Countdown from '@/layout/LoginIn/Countdown.vue'
+import Countdown from "@/layout/LoginIn/Countdown.vue";
 import { User, Lock } from "@element-plus/icons-vue";
 import { useUserStore } from "@/store/user/index";
 import { ref, computed } from "vue";
@@ -157,14 +156,14 @@ let loginParam = ref({
   code: "",
 });
 
-let flag = ref(false)
+let flag = ref(false);
 const getFlag = (value: boolean) => {
-  flag.value = value
-}
+  flag.value = value;
+};
 
 // 获取验证码
 const getEMScode = async () => {
-  flag.value = true
+  flag.value = true;
   let result: ResponseData = await reqGetesmCode(loginParam.value.phone);
   // console.log(result);
   if (result.code === 200) {
@@ -172,7 +171,13 @@ const getEMScode = async () => {
   }
 };
 
-const login = () => {
-  userStore.userLogin(loginParam)
-}
+const login = async () => {
+  try {
+    await userStore.userLogin(loginParam);
+    userStore.visible = false;
+  } catch (error) {
+    throw error.message;
+  }
+};
 </script>
+s

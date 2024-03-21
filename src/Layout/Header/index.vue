@@ -7,7 +7,24 @@
       </div>
       <div class="right">
         <div class="span1">帮助中心</div>
-        <div @click="login">登录/注册</div>
+        <div style="cursor: pointer;" @click="login" v-if="!userStore.userInfo.token">登录/注册</div>
+        <div v-else>
+          <el-dropdown>
+            <span class="el-dropdown-link">
+              <span>欢迎您，{{ userStore.userInfo.name }}</span>
+              <el-icon class="el-icon--right">
+                <arrow-down />
+              </el-icon>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item>个人中心</el-dropdown-item>
+                <el-dropdown-item>Action 2</el-dropdown-item>
+                <el-dropdown-item>Action 3</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
       </div>
     </div>
   </div>
