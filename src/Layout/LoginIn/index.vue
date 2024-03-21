@@ -23,7 +23,8 @@
               </el-form-item>
             </el-form>
             <div style="display: flex; justify-content: center">
-              <el-button style="width: 80%" type="primary" size="default">用户登录</el-button>
+              <el-button style="width: 80%" type="primary" size="default"
+                :disabled="!isPhone || loginParam.code.length != 6" @click="login">用户登录</el-button>·
             </div>
 
             <div style="
@@ -151,7 +152,7 @@ const changeScene = () => {
 
 //输入表单双向绑定
 let loginParam = ref({
-  // ref在dom中是不需要。value来获取属性值的。
+  // ref在dom中是不需要.value来获取属性值的。
   phone: "",
   code: "",
 });
@@ -170,4 +171,8 @@ const getEMScode = async () => {
     loginParam.value.code = result.data;
   }
 };
+
+const login = () => {
+  userStore.userLogin(loginParam)
+}
 </script>
