@@ -7,7 +7,7 @@ export const useUserStore = defineStore("User", () => {
   let userInfo = ref(
     JSON.parse(localStorage.getItem("userInfo") as string) || ({} as userInfo)
   );
-  console.log(userInfo.value);
+  // console.log(userInfo.value);
 
   const userLogin = async (loginData: loginData) => {
     // console.log("loginData", loginData.value);
