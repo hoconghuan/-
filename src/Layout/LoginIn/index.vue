@@ -49,18 +49,17 @@
                 >用户登录</el-button
               >·
             </div>
-
             <div
               style="
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 margin-top: 20px;
+                cursor: pointer;
               "
+              @click="changeScene"
             >
-              <p style="margin-bottom: 20px" @click="changeScene">
-                微信扫码登录
-              </p>
+              <p style="margin-bottom: 20px">微信扫码登录</p>
               <svg
                 t="1685263287521"
                 class="icon"
@@ -83,34 +82,35 @@
                 ></path>
               </svg>
             </div>
-            <div class="webchat" v-show="scene == 1">
-              <!-- 在这个容器当中显示微信扫码登录页面 -->
-              <div id="login_container"></div>
-              <div
-                style="
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  margin-top: 20px;
-                "
+          </div>
+          <div class="webchat" v-show="scene == 1" @click="changeScene">
+            <!-- 在这个容器当中显示微信扫码登录页面 -->
+            <div id="login_container"></div>
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 20px;
+                cursor: pointer;
+              "
+            >
+              <p style="margin-bottom: 20px">手机短信验证码登录</p>
+              <svg
+                t="1685676069573"
+                class="icon"
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                p-id="2476"
+                width="32"
+                height="32"
               >
-                <p style="margin-bottom: 20px">手机短信验证码登录</p>
-                <svg
-                  t="1685676069573"
-                  class="icon"
-                  viewBox="0 0 1024 1024"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  p-id="2476"
-                  width="16"
-                  height="16"
-                >
-                  <path
-                    d="M820.409449 797.228346q0 25.19685-10.07874 46.866142t-27.716535 38.299213-41.322835 26.204724-50.897638 9.574803l-357.795276 0q-27.212598 0-50.897638-9.574803t-41.322835-26.204724-27.716535-38.299213-10.07874-46.866142l0-675.275591q0-25.19685 10.07874-47.370079t27.716535-38.80315 41.322835-26.204724 50.897638-9.574803l357.795276 0q27.212598 0 50.897638 9.574803t41.322835 26.204724 27.716535 38.80315 10.07874 47.370079l0 675.275591zM738.771654 170.330709l-455.559055 0 0 577.511811 455.559055 0 0-577.511811zM510.992126 776.062992q-21.165354 0-36.787402 15.11811t-15.622047 37.291339q0 21.165354 15.622047 36.787402t36.787402 15.622047q22.173228 0 37.291339-15.622047t15.11811-36.787402q0-22.173228-15.11811-37.291339t-37.291339-15.11811zM591.622047 84.661417q0-8.062992-5.03937-12.598425t-11.086614-4.535433l-128 0q-5.03937 0-10.582677 4.535433t-5.543307 12.598425 5.03937 12.598425 11.086614 4.535433l128 0q6.047244 0 11.086614-4.535433t5.03937-12.598425z"
-                    p-id="2477"
-                  ></path>
-                </svg>
-              </div>
+                <path
+                  d="M820.409449 797.228346q0 25.19685-10.07874 46.866142t-27.716535 38.299213-41.322835 26.204724-50.897638 9.574803l-357.795276 0q-27.212598 0-50.897638-9.574803t-41.322835-26.204724-27.716535-38.299213-10.07874-46.866142l0-675.275591q0-25.19685 10.07874-47.370079t27.716535-38.80315 41.322835-26.204724 50.897638-9.574803l357.795276 0q27.212598 0 50.897638 9.574803t41.322835 26.204724 27.716535 38.80315 10.07874 47.370079l0 675.275591zM738.771654 170.330709l-455.559055 0 0 577.511811 455.559055 0 0-577.511811zM510.992126 776.062992q-21.165354 0-36.787402 15.11811t-15.622047 37.291339q0 21.165354 15.622047 36.787402t36.787402 15.622047q22.173228 0 37.291339-15.622047t15.11811-36.787402q0-22.173228-15.11811-37.291339t-37.291339-15.11811zM591.622047 84.661417q0-8.062992-5.03937-12.598425t-11.086614-4.535433l-128 0q-5.03937 0-10.582677 4.535433t-5.543307 12.598425 5.03937 12.598425 11.086614 4.535433l128 0q6.047244 0 11.086614-4.535433t5.03937-12.598425z"
+                  p-id="2477"
+                ></path>
+              </svg>
             </div>
           </div>
         </el-col>
@@ -209,13 +209,15 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance, FormRules } from "element-plus";
+import type { FormRules } from "element-plus";
 import Countdown from "@/layout/LoginIn/Countdown.vue";
 import { User, Lock } from "@element-plus/icons-vue";
 import { useUserStore } from "@/store/user/index";
 import { ref, computed, reactive } from "vue";
 import { reqGetesmCode } from "@/api/user/index";
 import type { ResponseData } from "@/api/user/type";
+import { getWechatCheck } from "@/api/wechat/index";
+import type { loginData } from "@/api/wechat/type";
 let userStore = useUserStore();
 
 // 手机号正则判断
@@ -228,8 +230,23 @@ let isPhone = computed(() => {
 
 // 登录切换
 let scene = ref(0); //0为号码登陆，1为二维码登陆
-const changeScene = () => {
+const changeScene = async () => {
   scene.value = scene.value === 0 ? 1 : 0;
+  let redirect_uri = encodeURIComponent(window.location.href + "/wxlogin/");
+  let result: loginData = await getWechatCheck(redirect_uri);
+  // console.log(result);
+  let { appid, redirectUri, state } = result.data;
+  // 微信扫码确认
+  new WxLogin({
+    self_redirect: true, //true:手机点击确认登录后可以在 iframe 内跳转到 redirect_uri
+    id: "login_container", //显示二维码容器设置
+    appid: appid, //应用位置标识appid
+    scope: "snsapi_login", //当前微信扫码登录页面已经授权了
+    redirect_uri: redirectUri, //填写授权回调域路径,就是用户授权成功以后，微信服务器向公司后台推送code地址
+    state: state, //state就是学校服务器重定向的地址携带用户信息
+    style: "black",
+    href: "",
+  });
 };
 
 //输入表单双向绑定

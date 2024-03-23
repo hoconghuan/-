@@ -20,5 +20,9 @@ export const useUserStore = defineStore("User", () => {
       localStorage.setItem("userInfo", JSON.stringify(result.data));
     }
   };
-  return { visible, userLogin, userInfo };
+  const userLogout = () => {
+    localStorage.removeItem("userInfo");
+    userInfo.value = { name: "", token: "" };
+  };
+  return { visible, userLogin, userInfo, userLogout };
 });
