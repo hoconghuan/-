@@ -50,6 +50,11 @@ export const router = createRouter({
       redirect: "/hospital/appointment_register",
     },
     {
+      path: "/wxlogin",
+      name: "wxlogin",
+      component: () => import("@/Pages/WxLogin/index.vue"),
+    },
+    {
       path: "/home",
       redirect: "/",
     },

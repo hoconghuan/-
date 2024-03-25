@@ -210,7 +210,7 @@
 
 <script setup lang="ts">
 import type { FormRules } from "element-plus";
-import Countdown from "@/layout/LoginIn/Countdown.vue";
+import Countdown from "@/layout/Login/Countdown.vue";
 import { User, Lock } from "@element-plus/icons-vue";
 import { useUserStore } from "@/store/user/index";
 import { ref, computed, reactive } from "vue";

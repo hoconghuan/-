@@ -5,14 +5,14 @@
       <router-view></router-view>
     </div>
     <Footer></Footer>
-    <LoginIn v-show="false"></LoginIn>
+    <Login v-show="false"></Login>
   </div>
 </template>
 
 <script setup lang="ts">
 import Header from "@/Layout/Header/index.vue";
 import Footer from "@/Layout/Footer/index.vue";
-import LoginIn from "@/Layout/LoginIn/index.vue"
+import Login from "@/Layout/Login/index.vue";
 
 // import request from '@/utils/request'
 
