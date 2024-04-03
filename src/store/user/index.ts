@@ -9,10 +9,8 @@ export const useUserStore = defineStore("User", () => {
   // console.log(userInfo.value);
 
   const userLogin = async (loginData: loginData) => {
-    // console.log("loginData", loginData.value);
-
     let result = await reqLogin(loginData.value);
-    console.log(result);
+
     if (result.code === 200) {
       userInfo.value = result.data;
       // 永久存储数据
@@ -27,8 +25,10 @@ export const useUserStore = defineStore("User", () => {
     let timer = setInterval(() => {
       if (getToken()) {
         visible.value = false;
+        console.log(visible.value);
+
         userInfo.value = JSON.parse(getToken() as string);
-        console.log(userInfo.value);
+        // console.log(userInfo.value);
         clearInterval(timer);
       }
     }, 1000);

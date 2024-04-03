@@ -7,26 +7,17 @@
         <Level @getLevel="getLevel"></Level>
         <Region @getRegion="getRegion"></Region>
         <div class="detail" v-if="hospitalList.length > 0">
-          <Card
-            class="card"
-            v-for="item in hospitalList"
-            :key="item.id"
-            :hospitalInfo="item"
-          ></Card>
+          <Card class="card" v-for="item in hospitalList" :key="item.id" :hospitalInfo="item"></Card>
         </div>
         <el-empty v-else description="暂无数据" />
         <div class="pagnation">
-          <el-pagination
-            v-model:current-page="currentPage"
-            v-model:page-size="pageSize"
-            :page-sizes="[10, 20, 30, 40]"
-            layout=" prev, pager, next, jumper, sizes,total"
-            :total="totalHisptal"
-            @change="changePage"
-          />
+          <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize" :page-sizes="[10, 20, 30, 40]"
+            layout=" prev, pager, next, jumper, sizes,total" :total="totalHisptal" @change="changePage" />
         </div>
       </el-col>
-      <el-col :span="4"> <Info></Info></el-col>
+      <el-col :span="4">
+        <Info></Info>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -37,7 +28,7 @@ import Search from "@/Pages/Home/Search/index.vue";
 import Level from "@/Pages/Home/Level/index.vue";
 import Region from "@/Pages/Home/Region/index.vue";
 import Card from "@/Pages/Home/Card/index.vue";
-import Info from "@/pages/Home/Info/index.vue";
+import Info from "./Info/index.vue";
 import type { HospitalResponseData, HospitalList } from "@/api/home/type";
 import { onMounted, ref } from "vue";
 import { getHospitalList } from "@/api/home";
