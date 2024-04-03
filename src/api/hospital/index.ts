@@ -1,4 +1,5 @@
 import request from "@/utils/request";
+
 import type { HospitalData, DepartmentData } from "@/api/hospital/type";
 enum API {
   hospitalUrl = "/hosp/hospital/",

@@ -213,7 +213,7 @@ import type { FormRules } from "element-plus";
 import Countdown from "@/layout/Login/Countdown.vue";
 import { User, Lock } from "@element-plus/icons-vue";
 import { useUserStore } from "@/store/user/index";
-import { ref, computed, reactive } from "vue";
+import { ref, computed, reactive, watch } from "vue";
 import { reqGetesmCode } from "@/api/user/index";
 import type { ResponseData } from "@/api/user/type";
 import { getWechatCheck } from "@/api/wechat/index";
@@ -232,7 +232,7 @@ let isPhone = computed(() => {
 let scene = ref(0); //0为号码登陆，1为二维码登陆
 const changeScene = async () => {
   scene.value = scene.value === 0 ? 1 : 0;
-  let redirect_uri = encodeURIComponent(window.location.href + "/wxlogin/");
+  let redirect_uri = encodeURIComponent(window.location.origin + "/wxlogin/");
   let result: loginData = await getWechatCheck(redirect_uri);
   // console.log(result);
   let { appid, redirectUri, state } = result.data;
@@ -276,24 +276,24 @@ const login = async () => {
   await form.value.validate();
   // console.log(loginParam.value);
   try {
-    await userStore.userLogin(loginParam);
+    await userStore.userLogin(loginParam.value);
     userStore.visible = false;
-  } catch (error) {
+  } catch (error: any) {
     throw error.message;
   }
 };
 
 // 表单校验
 
-const validatePhone = (_, value, callback) => {
+const validatePhone = (rule: any, value: string, callback: any) => {
   // console.log(value, callback);
   reg.test(value) ? callback() : callback(new Error("手机号格式不正确"));
 };
-const validateCode = (_, value, callback) => {
+const validateCode = (rule: any, value: string, callback: any) => {
   // console.log(value, callback);
   regCode.test(value) ? callback() : callback(new Error("验证码不足6位"));
 };
-const rules = reactive<FormRules<RuleForm>>({
+const rules = reactive<FormRules>({
   phone: [
     // 第一种通用配置
     // {
@@ -318,4 +318,15 @@ const close = () => {
   (loginParam.value.phone = ""), (loginParam.value.code = "");
   form.value.resetFields();
 };
+
+watch(
+  () => {
+    scene.value;
+  },
+  (val) => {
+    if (val === 1) {
+      userStore.queryState();
+    }
+  }
+);
 </script>

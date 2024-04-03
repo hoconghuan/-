@@ -2,11 +2,10 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import type { loginData, userInfo } from "@/api/user/type";
 import { reqLogin } from "@/api/user/index";
+import { setToken, getToken, removeToken } from "@/utils/user";
 export const useUserStore = defineStore("User", () => {
   let visible = ref(false);
-  let userInfo = ref(
-    JSON.parse(localStorage.getItem("userInfo") as string) || ({} as userInfo)
-  );
+  let userInfo = ref(JSON.parse(getToken() as string) || ({} as userInfo));
   // console.log(userInfo.value);
 
   const userLogin = async (loginData: loginData) => {
@@ -17,12 +16,22 @@ export const useUserStore = defineStore("User", () => {
     if (result.code === 200) {
       userInfo.value = result.data;
       // 永久存储数据
-      localStorage.setItem("userInfo", JSON.stringify(result.data));
+      setToken(JSON.stringify(result.data));
     }
   };
   const userLogout = () => {
-    localStorage.removeItem("userInfo");
+    removeToken();
     userInfo.value = { name: "", token: "" };
   };
-  return { visible, userLogin, userInfo, userLogout };
+  const queryState = () => {
+    let timer = setInterval(() => {
+      if (getToken()) {
+        visible.value = false;
+        userInfo.value = JSON.parse(getToken() as string);
+        console.log(userInfo.value);
+        clearInterval(timer);
+      }
+    }, 1000);
+  };
+  return { visible, userLogin, userInfo, userLogout, queryState };
 });

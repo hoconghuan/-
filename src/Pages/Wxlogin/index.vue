@@ -4,11 +4,11 @@
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-// import { useUserStore } from "@/store/user";
-let $route = useRoute();
-console.log(123);
 
+import { setToken } from "@/utils/user";
+let $route = useRoute();
 console.log($route.query);
+setToken(JSON.stringify($route.query));
 </script>
 
 <style scoped></style>
