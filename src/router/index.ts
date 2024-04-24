@@ -21,6 +21,12 @@ export const router = createRouter({
             import("@/Pages/Hospital/appointment_register/index.vue"),
         },
         {
+          //预约挂号后续1
+          path: "register_step1",
+          component: () =>
+            import("@/Pages/Hospital/appointment_register/register_step1.vue"),
+        },
+        {
           // 详情
           path: "hospital_info",
           name: "hospital_info",
