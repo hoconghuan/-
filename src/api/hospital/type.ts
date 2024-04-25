@@ -50,3 +50,30 @@ export type OfficeData = Datum[];
 export interface DepartmentData extends RootObject {
   data: OfficeData;
 }
+
+export interface registerDataForm {
+  total: number;
+  bookingScheduleList: [
+    {
+      workDate: string;
+      workDateMd: string;
+      dayOfWeek: string;
+      docCount: number;
+      reservedNumber: null | number;
+      availableNumber: number;
+      status: number;
+    }
+  ];
+  baseMap: {
+    workDateString: string;
+    releaseTime: string;
+    bigname: string;
+    stopTime: string;
+    depname: string;
+    hosname: string;
+  };
+}
+
+export interface registerData extends RootObject {
+  data: registerDataForm;
+}

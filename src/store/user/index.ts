@@ -9,12 +9,12 @@ export const useUserStore = defineStore("User", () => {
   // console.log(userInfo.value);
 
   const userLogin = async (loginData: loginData) => {
-    let result = await reqLogin(loginData.value);
+    let result = await reqLogin(loginData);
 
     if (result.code === 200) {
       userInfo.value = result.data;
       // 永久存储数据
-      setToken(JSON.stringify(result.data));
+      setToken(JSON.stringify(userInfo.value));
     }
   };
   const userLogout = () => {
