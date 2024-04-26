@@ -18,7 +18,7 @@ export const router = createRouter({
           path: "appointment_register",
           name: "appointment_register",
           component: () =>
-            import("@/Pages/Hospital/appointment_register/index.vue"),
+            import("@/pages/Hospital/appointment_register/index.vue"),
         },
         {
           //预约挂号后续1

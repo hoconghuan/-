@@ -4,12 +4,16 @@ import type {
   HospitalData,
   DepartmentData,
   registerData,
+  hospitalArrangeListData
 } from "@/api/hospital/type";
 enum API {
   hospitalUrl = "/hosp/hospital/",
   hospitalOffice = "/hosp/hospital/department/",
 
   registerData = "/hosp/hospital/auth/getBookingScheduleRule/",
+
+  // 获取可预约排班数据
+  getBookingScheduleLists = "/hosp/hospital/auth/findScheduleList/",
 }
 
 export const reqHospital = (hoscode: string) => {
@@ -27,6 +31,16 @@ export const reqHospitalRegisterData = (
   depcode: string
 ) => {
   return request.get<any, registerData>(
-    API.registerData + "/" + page + "/" + limit + "/" + hoscode + "/" + depcode
+    API.registerData + page + "/" + limit + "/" + hoscode + "/" + depcode
+  );
+};
+
+export const reqHospitalBookingScheduleLists = (
+  hoscode: string,
+  depcode: string,
+  workDate: string
+) => {
+  return request.get<any, hospitalArrangeListData>(
+    API.getBookingScheduleLists + hoscode + "/" + depcode + "/" + workDate
   );
 };

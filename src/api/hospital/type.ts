@@ -77,3 +77,30 @@ export interface registerDataForm {
 export interface registerData extends RootObject {
   data: registerDataForm;
 }
+
+export interface arrangeList {
+  id: string;
+  createTime: string;
+  updateTime: string;
+  isDeleted: number;
+  param: {
+    dayOfWeek: string;
+    depname: string;
+    hosname: string;
+  };
+  hoscode: string;
+  depcode: string;
+  title: string;
+  docname: string;
+  skill: string;
+  workDate: string;
+  workTime: number;
+  reservedNumber: number;
+  availableNumber: number;
+  amount: number;
+  status: number;
+  hosScheduleId: string;
+}
+export interface hospitalArrangeListData extends RootObject {
+  data: arrangeList
+}
