@@ -101,6 +101,7 @@ export interface arrangeList {
   status: number;
   hosScheduleId: string;
 }
+
 export interface hospitalArrangeListData extends RootObject {
-  data: arrangeList
+  data: arrangeList[]
 }

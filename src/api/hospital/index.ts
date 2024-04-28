@@ -6,6 +6,7 @@ import type {
   registerData,
   hospitalArrangeListData
 } from "@/api/hospital/type";
+
 enum API {
   hospitalUrl = "/hosp/hospital/",
   hospitalOffice = "/hosp/hospital/department/",
@@ -14,6 +15,8 @@ enum API {
 
   // 获取可预约排班数据
   getBookingScheduleLists = "/hosp/hospital/auth/findScheduleList/",
+
+
 }
 
 export const reqHospital = (hoscode: string) => {
