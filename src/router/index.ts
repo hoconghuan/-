@@ -27,6 +27,11 @@ export const router = createRouter({
             import("@/pages/Hospital/appointment_register/register_step1.vue"),
         },
         {
+          path: "register_step2",
+          component: () =>
+            import("@/pages/Hospital/appointment_register/register_step2.vue"),
+        },
+        {
           // 详情
           path: "hospital_info",
           name: "hospital_info",
@@ -60,6 +65,7 @@ export const router = createRouter({
       name: "wxlogin",
       component: () => import("@/pages/wxLogin/index.vue"),
     },
+
     {
       path: "/home",
       redirect: "/",

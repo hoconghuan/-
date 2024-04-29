@@ -88,7 +88,7 @@
             <!-- 右侧区域展示挂号的钱数-->
             <div class="right">
               <div class="money">￥ {{ doctor.amount }}</div>
-              <el-button type="primary" size="default" @click="">
+              <el-button type="primary" size="default" click="goStep2(doctor)">
                 {{ doctor.availableNumber }}
               </el-button>
             </div>
@@ -174,7 +174,7 @@
             <!-- 右侧区域展示挂号的钱数-->
             <div class="right">
               <div class="money">￥ {{ doctor.amount }}</div>
-              <el-button type="primary" size="default" @click="">
+              <el-button type="primary" size="default" @click="goStep2(doctor)">
                 {{ doctor.availableNumber }}
               </el-button>
             </div>
@@ -194,11 +194,12 @@ import {
 import type {
   bookingScheduleList,
   arrangeLists,
+  arrangeList,
   registerDataForm,
   registerData,
   hospitalArrangeListData,
 } from "@/api/hospital/type";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 //预约日期
 let newDate = new Date();
 // 在这里拿data的实例，调用getDate拿到实际天数，再调用setDate修改时间，
@@ -210,6 +211,7 @@ let getMonth = newDate.getMonth() + 1;
 let date = `${getYear}年${getMonth}月${getDay}日`;
 
 let $route = useRoute();
+let $router = useRouter();
 let page = ref(1);
 let limit = ref(6);
 let responseData = ref({} as registerDataForm);
@@ -247,6 +249,14 @@ const getDoctorArrange = async () => {
   if (result.code === 200) {
     doctorArrange.value = result.data;
   }
+};
+const goStep2 = (doctor: arrangeList) => {
+  $router.push({
+    path: "/hospital/register_step2",
+    query: {
+      docId: doctor.id,
+    },
+  });
 };
 onMounted(() => {
   fetchData();
