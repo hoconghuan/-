@@ -16,7 +16,6 @@
           class="item"
           :class="{ active: item.status == -1 || item.availableNumber == -1 }"
           v-for="item in responseData.bookingScheduleList"
-          :key="item.id"
           @click="chooseAppointment(item)"
         >
           <div class="top1">{{ item.workDate }}-{{ item.dayOfWeek }}</div>
@@ -43,16 +42,16 @@
     <!-- 底部展示医生的结构 -->
     <div class="bottom">
       <!-- 展示即将放号的时间 -->
-      <div class="will">
+      <div class="will" v-if="workTime.status == 1">
         <span class="time">2023年6月3日08:30</span>
         <span class="willText">放号</span>
       </div>
       <!-- 展示医生的结构:上午、下午 -->
-      <div class="doctor">
+      <div class="doctor" v-else>
         <!-- 上午 -->
         <div class="moring">
           <!-- 顶部文字提示 -->
-          <div class="tip">
+          <div class="tip" v-if="workTime.availableNumber !== -1">
             <svg
               t="1685757781400"
               class="icon"
@@ -72,21 +71,25 @@
             <span class="text">上午号源</span>
           </div>
           <!--每一个医生的信息-->
-          <div class="doc_info" v-for="doctor in 1">
+          <div
+            class="doc_info"
+            v-for="doctor in doctorArrange"
+            v-show="doctor.workTime == 1"
+          >
             <!-- 展示医生的名字|技能 -->
             <div class="left">
               <div class="info">
-                <span> doctor.title </span>
+                <span> {{ doctor.title }} </span>
                 <span>|</span>
-                <span>doctor.docname </span>
+                <span>{{ doctor.docname }} </span>
               </div>
-              <div class="skill">doctor.skill</div>
+              <div class="skill">{{ doctor.skill }}</div>
             </div>
             <!-- 右侧区域展示挂号的钱数-->
             <div class="right">
-              <div class="money">￥ doctor.amount</div>
+              <div class="money">￥ {{ doctor.amount }}</div>
               <el-button type="primary" size="default" @click="">
-                doctor.availableNumber
+                {{ doctor.availableNumber }}
               </el-button>
             </div>
           </div>
@@ -94,7 +97,7 @@
         <!-- 下午 -->
         <div class="moring">
           <!-- 顶部文字提示 -->
-          <div class="tip">
+          <div class="tip" v-if="workTime.availableNumber !== -1">
             <svg
               t="1685758544953"
               class="icon"
@@ -154,21 +157,25 @@
             <span class="text">下午号源</span>
           </div>
           <!--每一个医生的信息-->
-          <div class="doc_info" v-for="doctor in 1">
+          <div
+            class="doc_info"
+            v-for="doctor in doctorArrange"
+            v-show="doctor.workTime == 0"
+          >
             <!-- 展示医生的名字|技能 -->
             <div class="left">
               <div class="info">
-                <span> doctor.title </span>
+                <span> {{ doctor.title }} </span>
                 <span>|</span>
-                <span> doctor.docname </span>
+                <span> {{ doctor.docname }} </span>
               </div>
-              <div class="skill">doctor.skill</div>
+              <div class="skill">{{ doctor.skill }}</div>
             </div>
             <!-- 右侧区域展示挂号的钱数-->
             <div class="right">
-              <div class="money">￥ doctor.amount</div>
-              <el-button type="primary" size="default" @click=""
-                >doctor.availableNumber
+              <div class="money">￥ {{ doctor.amount }}</div>
+              <el-button type="primary" size="default" @click="">
+                {{ doctor.availableNumber }}
               </el-button>
             </div>
           </div>
@@ -185,6 +192,9 @@ import {
   reqHospitalBookingScheduleLists,
 } from "@/api/hospital/index";
 import type {
+  bookingScheduleList,
+  arrangeLists,
+  registerDataForm,
   registerData,
   hospitalArrangeListData,
 } from "@/api/hospital/type";
@@ -192,8 +202,9 @@ import { useRoute } from "vue-router";
 let $route = useRoute();
 let page = ref(1);
 let limit = ref(6);
-let responseData = ref<any>({});
-let workTime: any = ref({});
+let responseData = ref({} as registerDataForm);
+let workTime = ref({} as bookingScheduleList);
+let doctorArrange = ref([] as arrangeLists);
 const fetchData = async () => {
   let result: registerData = await reqHospitalRegisterData(
     page.value,
@@ -210,7 +221,9 @@ const fetchData = async () => {
   }
 };
 const chooseAppointment = (item: any) => {
-  console.log(item);
+  // console.log(item);
+  workTime.value = item;
+  getDoctorArrange();
 };
 const getDoctorArrange = async () => {
   let hoscode = $route.query.hoscode as string;
@@ -221,7 +234,9 @@ const getDoctorArrange = async () => {
     depcode,
     workDate
   );
-  console.log(result);
+  if (result.code === 200) {
+    doctorArrange.value = result.data;
+  }
 };
 onMounted(() => {
   fetchData();
@@ -230,16 +245,19 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .wrap {
-  color: #7f7f7f;
-  .line {
-    width: 5px;
-    height: 20px;
-    background: skyblue;
-    margin: 0px 5px;
-  }
-  .dot {
-    margin: 0px 5px;
-    color: skyblue;
+  .top {
+    display: flex;
+    color: #7f7f7f;
+    .line {
+      width: 5px;
+      height: 20px;
+      background: skyblue;
+      margin: 0px 5px;
+    }
+    .dot {
+      margin: 0px 5px;
+      color: skyblue;
+    }
   }
 }
 .center {

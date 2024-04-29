@@ -53,17 +53,7 @@ export interface DepartmentData extends RootObject {
 
 export interface registerDataForm {
   total: number;
-  bookingScheduleList: [
-    {
-      workDate: string;
-      workDateMd: string;
-      dayOfWeek: string;
-      docCount: number;
-      reservedNumber: null | number;
-      availableNumber: number;
-      status: number;
-    }
-  ];
+  bookingScheduleList: bookingScheduleLists;
   baseMap: {
     workDateString: string;
     releaseTime: string;
@@ -73,7 +63,16 @@ export interface registerDataForm {
     hosname: string;
   };
 }
-
+export interface bookingScheduleList {
+  workDate: string;
+  workDateMd: string;
+  dayOfWeek: string;
+  docCount: number;
+  reservedNumber: null | number;
+  availableNumber: number;
+  status: number;
+}
+export type bookingScheduleLists = bookingScheduleList[];
 export interface registerData extends RootObject {
   data: registerDataForm;
 }
@@ -101,7 +100,7 @@ export interface arrangeList {
   status: number;
   hosScheduleId: string;
 }
-
+export type arrangeLists = arrangeList[];
 export interface hospitalArrangeListData extends RootObject {
-  data: arrangeList[]
+  data: arrangeLists;
 }
