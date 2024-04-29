@@ -43,7 +43,7 @@
     <div class="bottom">
       <!-- 展示即将放号的时间 -->
       <div class="will" v-if="workTime.status == 1">
-        <span class="time">2023年6月3日08:30</span>
+        <span class="time">{{ date }}08:30</span>
         <span class="willText">放号</span>
       </div>
       <!-- 展示医生的结构:上午、下午 -->
@@ -199,6 +199,16 @@ import type {
   hospitalArrangeListData,
 } from "@/api/hospital/type";
 import { useRoute } from "vue-router";
+//预约日期
+let newDate = new Date();
+// 在这里拿data的实例，调用getDate拿到实际天数，再调用setDate修改时间，
+newDate.setDate(newDate.getDate() + 10);
+let getDay = newDate.getDate();
+let getYear = newDate.getFullYear();
+let getMonth = newDate.getMonth() + 1;
+
+let date = `${getYear}年${getMonth}月${getDay}日`;
+
 let $route = useRoute();
 let page = ref(1);
 let limit = ref(6);
@@ -278,9 +288,11 @@ onMounted(() => {
       border: 1px solid skyblue;
       margin: 0px 10px;
       transition: all 0.3s;
+      cursor: pointer;
       &.active {
         border: 1px solid #ccc;
         color: #7f7f7f;
+        cursor: auto;
         .top1 {
           background: #ccc;
         }

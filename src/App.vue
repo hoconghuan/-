@@ -10,9 +10,9 @@
 </template>
 
 <script setup lang="ts">
-import Header from "@/Layout/Header/index.vue";
-import Footer from "@/Layout/Footer/index.vue";
-import Login from "@/Layout/Login/index.vue";
+import Header from "@/layout/Header/index.vue";
+import Footer from "@/layout/Footer/index.vue";
+import Login from "@/layout/Login/index.vue";
 
 // import request from '@/utils/request'
 
