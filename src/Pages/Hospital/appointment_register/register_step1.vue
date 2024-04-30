@@ -88,7 +88,7 @@
             <!-- 右侧区域展示挂号的钱数-->
             <div class="right">
               <div class="money">￥ {{ doctor.amount }}</div>
-              <el-button type="primary" size="default" click="goStep2(doctor)">
+              <el-button type="primary" size="default" @click="goStep2(doctor)">
                 {{ doctor.availableNumber }}
               </el-button>
             </div>

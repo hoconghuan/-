@@ -104,3 +104,42 @@ export type arrangeLists = arrangeList[];
 export interface hospitalArrangeListData extends RootObject {
   data: arrangeLists;
 }
+
+//代表的是一个就诊人数据ts类型
+export interface user {
+  id: number;
+  createTime: string;
+  updateTime: string;
+  isDeleted: number;
+  param: {
+    certificatesTypeString: string;
+    contactsCertificatesTypeString: string;
+    cityString: null;
+    fullAddress: string;
+    districtString: null;
+    provinceString: null;
+  };
+  userId: number;
+  name: number;
+  certificatesType: string;
+  certificatesNo: string;
+  sex: number;
+  birthdate: string;
+  phone: string;
+  isMarry: number;
+  provinceCode: null;
+  cityCode: null;
+  districtCode: null;
+  address: string;
+  contactsName: string;
+  contactsCertificatesType: string;
+  contactsCertificatesNo: string;
+  contactsPhone: string;
+  isInsure: number;
+  cardNo: null;
+  status: string;
+}
+export type userArr = user[];
+export interface userResponseData extends RootObject {
+  data: userArr;
+}
