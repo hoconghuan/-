@@ -3,8 +3,8 @@ import request from "@/utils/request";
 import type {
   HospitalData,
   DepartmentData,
-  registerData,
-  hospitalArrangeListData,
+  RegisterData,
+  HospitalArrangeListData,
   UserResponseData,
 } from "@/api/hospital/type";
 
@@ -35,7 +35,7 @@ export const reqHospitalRegisterData = (
   hoscode: string,
   depcode: string
 ) => {
-  return request.get<string, registerData>(
+  return request.get<string, RegisterData>(
     API.registerData + page + "/" + limit + "/" + hoscode + "/" + depcode
   );
 };
@@ -45,7 +45,7 @@ export const reqHospitalBookingScheduleLists = (
   depcode: string,
   workDate: string
 ) => {
-  return request.get<string, hospitalArrangeListData>(
+  return request.get<string, HospitalArrangeListData>(
     API.getBookingScheduleLists + hoscode + "/" + depcode + "/" + workDate
   );
 };

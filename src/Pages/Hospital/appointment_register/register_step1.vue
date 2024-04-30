@@ -192,12 +192,12 @@ import {
   reqHospitalBookingScheduleLists,
 } from "@/api/hospital/index";
 import type {
-  bookingScheduleList,
-  arrangeLists,
-  arrangeList,
-  registerDataForm,
-  registerData,
-  hospitalArrangeListData,
+  BookingScheduleList,
+  ArrangeLists,
+  ArrangeList,
+  RegisterDataForm,
+  RegisterData,
+  HospitalArrangeListData,
 } from "@/api/hospital/type";
 import { useRoute, useRouter } from "vue-router";
 //预约日期
@@ -214,11 +214,11 @@ let $route = useRoute();
 let $router = useRouter();
 let page = ref(1);
 let limit = ref(6);
-let responseData = ref({} as registerDataForm);
-let workTime = ref({} as bookingScheduleList);
-let doctorArrange = ref([] as arrangeLists);
+let responseData = ref({} as RegisterDataForm);
+let workTime = ref({} as BookingScheduleList);
+let doctorArrange = ref([] as ArrangeLists);
 const fetchData = async () => {
-  let result: registerData = await reqHospitalRegisterData(
+  let result: RegisterData = await reqHospitalRegisterData(
     page.value,
     limit.value,
     $route.query.hoscode as string,
@@ -241,7 +241,7 @@ const getDoctorArrange = async () => {
   let hoscode = $route.query.hoscode as string;
   let depcode = $route.query.depcode as string;
   let workDate = workTime.value.workDate;
-  let result: hospitalArrangeListData = await reqHospitalBookingScheduleLists(
+  let result: HospitalArrangeListData = await reqHospitalBookingScheduleLists(
     hoscode,
     depcode,
     workDate
@@ -250,7 +250,7 @@ const getDoctorArrange = async () => {
     doctorArrange.value = result.data;
   }
 };
-const goStep2 = (doctor: arrangeList) => {
+const goStep2 = (doctor: ArrangeList) => {
   $router.push({
     path: "/hospital/register_step2",
     query: {

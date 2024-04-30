@@ -51,9 +51,9 @@ export interface DepartmentData extends RootObject {
   data: OfficeData;
 }
 
-export interface registerDataForm {
+export interface RegisterDataForm {
   total: number;
-  bookingScheduleList: bookingScheduleLists;
+  bookingScheduleList: BookingScheduleLists;
   baseMap: {
     workDateString: string;
     releaseTime: string;
@@ -63,7 +63,7 @@ export interface registerDataForm {
     hosname: string;
   };
 }
-export interface bookingScheduleList {
+export interface BookingScheduleList {
   workDate: string;
   workDateMd: string;
   dayOfWeek: string;
@@ -72,12 +72,12 @@ export interface bookingScheduleList {
   availableNumber: number;
   status: number;
 }
-export type bookingScheduleLists = bookingScheduleList[];
-export interface registerData extends RootObject {
-  data: registerDataForm;
+export type BookingScheduleLists = BookingScheduleList[];
+export interface RegisterData extends RootObject {
+  data: RegisterDataForm;
 }
 
-export interface arrangeList {
+export interface ArrangeList {
   id: string;
   createTime: string;
   updateTime: string;
@@ -100,13 +100,13 @@ export interface arrangeList {
   status: number;
   hosScheduleId: string;
 }
-export type arrangeLists = arrangeList[];
-export interface hospitalArrangeListData extends RootObject {
-  data: arrangeLists;
+export type ArrangeLists = ArrangeList[];
+export interface HospitalArrangeListData extends RootObject {
+  data: ArrangeLists;
 }
 
 //代表的是一个就诊人数据ts类型
-export interface user {
+export interface UserInfo {
   id: number;
   createTime: string;
   updateTime: string;
@@ -139,7 +139,7 @@ export interface user {
   cardNo: null;
   status: string;
 }
-export type userArr = user[];
-export interface userResponseData extends RootObject {
-  data: userArr;
+export type UserArr = UserInfo[];
+export interface UserResponseData extends RootObject {
+  data: UserArr;
 }
