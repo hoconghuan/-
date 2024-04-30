@@ -34,12 +34,12 @@
 </template>
 
 <script setup lang="ts">
-import Carousel from "@/pages/Home/Carousel/index.vue";
-import Search from "@/pages/Home/Search/index.vue";
-import Level from "@/pages/Home/Level/index.vue";
-import Region from "@/pages/Home/Region/index.vue";
-import Card from "@/pages/Home/Card/index.vue";
-import Info from "./Info/index.vue";
+import Carousel from "@/pages/home/carousel/index.vue";
+import Search from "@/pages/home/search/index.vue";
+import Level from "@/pages/home/level/index.vue";
+import Region from "@/pages/home/region/index.vue";
+import Card from "@/pages/home/card/index.vue";
+import Info from "@/pages/home/info/index.vue";
 import type { HospitalResponseData, HospitalList } from "@/api/home/type";
 import { onMounted, ref } from "vue";
 import { getHospitalList } from "@/api/home";

@@ -28,11 +28,11 @@
                     ></el-input></el-col
                   ><el-col :span="8">
                     <el-button :disabled="!isPhone || flag" @click="getEMScode">
-                      <Countdown
+                      <CountDown
                         v-if="flag"
                         :flag="flag"
                         @getFlag="getFlag"
-                      ></Countdown>
+                      ></CountDown>
                       <span v-else>获取验证码</span>
                     </el-button></el-col
                   >
@@ -210,7 +210,7 @@
 
 <script setup lang="ts">
 import type { FormRules } from "element-plus";
-import Countdown from "./Countdown.vue";
+import CountDown from "@/layout/login/countDown.vue";
 import { User, Lock } from "@element-plus/icons-vue";
 import { useUserStore } from "@/store/user/index";
 import { ref, computed, reactive, watch } from "vue";
