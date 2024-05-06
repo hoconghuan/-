@@ -143,3 +143,30 @@ export type UserArr = UserInfo[];
 export interface UserResponseData extends RootObject {
   data: UserArr;
 }
+export interface DoctorInfo {
+  id: string;
+  createTime: string;
+  updateTime: string;
+  isDeleted: number;
+  param: {
+    dayOfWeek: string;
+    depname: string;
+    hosname: string;
+  };
+  hoscode: string;
+  depcode: string;
+  title: string;
+  docname: string;
+  skill: string;
+  workDate: string;
+  workTime: number;
+  reservedNumber: number;
+  availableNumber: number;
+  amount: number;
+  status: number;
+  hosScheduleId: string;
+}
+
+export interface DoctorData extends RootObject {
+  data: DoctorInfo;
+}
