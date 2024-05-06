@@ -101,7 +101,7 @@ import {} from "@/api/user";
 import type {} from "@/api/user/type";
 import { onMounted, ref } from "vue";
 
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 //@ts-ignore
 import { ElMessage } from "element-plus";
 //获取路由对象
