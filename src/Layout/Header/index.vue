@@ -14,7 +14,7 @@
         >
           登录/注册
         </div>
-        <div v-else>
+        <div v-else style="cursor: pointer">
           <el-dropdown @command="handle">
             <span class="el-dropdown-link">
               <span>欢迎您，{{ userStore.userInfo.name }}</span>
@@ -56,7 +56,7 @@ const logout = () => {
   $router.push("/");
 };
 const handle = (command: string) => {
-  $router.push(command);
+  $router.push({ path: command });
 };
 </script>
 
@@ -81,7 +81,7 @@ const handle = (command: string) => {
       display: flex;
       justify-content: space-between;
       align-items: center;
-
+      cursor: pointer;
       img {
         width: 70px;
         height: 70px;
