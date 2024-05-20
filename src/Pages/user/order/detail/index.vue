@@ -117,13 +117,16 @@
                 <span>注意事项</span>
               </div>
             </template>
-            <p>1.请确认就诊人信息是否准确，若填写错误将无法取号就诊，损失由本人承担；</p>
+            <p>
+              1.请确认就诊人信息是否准确，若填写错误将无法取号就诊，损失由本人承担；
+            </p>
             <p style="color: red">
               2.【取号】就诊当天需在{{ orderInfo.fetchTime }}前
               在医院取号，未取号视为爽约，该号不退不换；
             </p>
             <p>
-              3.【退号】在{{ orderInfo.quitTime }}前可在线退号 ，逾期将不可办理退号退费；
+              3.【退号】在{{ orderInfo.quitTime }}前可在线退号
+              ，逾期将不可办理退号退费；
             </p>
             <p>
               4.北京114预约挂号支持自费患者使用身份证预约，同时支持北京市医保患者使用北京社保卡在平台预约挂号。请于就诊当日，携带预约挂号所使用的有效身份证件到院取号；
@@ -135,7 +138,12 @@
     </el-card>
     <!-- 展示支付二维码的结构 -->
     <!-- 对话框通过v-model控制显示与隐藏的 true:展示 false隐藏 -->
-    <el-dialog @close="close" v-model="dialogVisible" title="微信支付" width="400">
+    <el-dialog
+      @close="close"
+      v-model="dialogVisible"
+      title="微信支付"
+      width="400"
+    >
       <!-- 支付需要使用的二维码图片 -->
       <div class="qrocde">
         <img :src="imgUrl" alt="" />
@@ -144,7 +152,9 @@
       </div>
       <!-- 对话框底部插槽传递结构 -->
       <template #footer>
-        <el-button type="primary" size="default" @click="closeDialog">关闭窗口</el-button>
+        <el-button type="primary" size="default" @click="closeDialog"
+          >关闭窗口</el-button
+        >
       </template>
     </el-dialog>
   </div>
@@ -152,9 +162,9 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { } from "@/api/user";
+import { reqGetOrder, reqCancelOrder } from "@/api/user";
 import { useRoute } from "vue-router";
-import type { } from "@/api/user/type";
+import type { OrderResponseData } from "@/api/user/type";
 //@ts-ignore
 import { ElMessage } from "element-plus";
 //生成二维码插件qrcode
@@ -169,12 +179,18 @@ let orderInfo = ref<any>({});
 //存储定时器引用
 let timer = ref<any>();
 
-
 //取消订单   订单状态有三种 orderStatus  -1  取消预约  0 预约但是没有支付  1 支付成功
-
-
+const cancel = async () => {
+  try {
+    await reqCancelOrder($route.query.orderId as string);
+    ElMessage.success("取消成功");
+    getOrderInfo();
+  } catch (error) {
+    ElMessage({ type: "error", message: "取消失败" });
+  }
+};
 //点击支付按钮的回调
-
+const openDialog = () => (dialogVisible.value = true);
 //关闭窗口的回调
 const closeDialog = () => {
   //关闭对话框,对话框隐藏
@@ -183,9 +199,19 @@ const closeDialog = () => {
   clearInterval(timer.value);
 };
 //对话框右上角关闭的叉子的回调
-const close = ()=>{
+const close = () => {
   clearInterval(timer.value);
-}
+};
+
+onMounted(() => {
+  getOrderInfo();
+});
+const getOrderInfo = async () => {
+  let result: OrderResponseData = await reqGetOrder(
+    $route.query.orderId as string
+  );
+  console.log(result);
+};
 </script>
 
 <style scoped lang="scss">
