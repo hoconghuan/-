@@ -13,16 +13,6 @@
 import Header from "@/layout/header/index.vue";
 import Footer from "@/layout/footer/index.vue";
 import Login from "@/layout/login/index.vue";
-
-// import request from '@/utils/request'
-
-// import { onMounted } from "vue";
-// onMounted(
-//   () => {
-//     request.get('/hosp/hospital/1/10').then((res) => { console.log(res) })
-
-//   }
-// )
 </script>
 
 <style scoped lang="scss">
