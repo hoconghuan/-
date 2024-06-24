@@ -14,16 +14,22 @@
         >
           登录/注册
         </div>
-        <div v-else>
-          <el-dropdown>
+        <div v-else style="cursor: pointer">
+          <el-dropdown @command="handle">
             <span class="el-dropdown-link">
               <span>欢迎您，{{ userStore.userInfo.name }}</span>
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>个人中心</el-dropdown-item>
-                <el-dropdown-item>挂号订单</el-dropdown-item>
-                <el-dropdown-item>就诊人员管理</el-dropdown-item>
+                <el-dropdown-item command="/user/certification"
+                  >个人中心</el-dropdown-item
+                >
+                <el-dropdown-item command="/user/order"
+                  >挂号订单</el-dropdown-item
+                >
+                <el-dropdown-item command="/user/patient"
+                  >就诊人员管理</el-dropdown-item
+                >
                 <el-dropdown-item @click="logout">推出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -49,6 +55,9 @@ const logout = () => {
   userStore.userLogout();
   $router.push("/");
 };
+const handle = (command: string) => {
+  $router.push({ path: command });
+};
 </script>
 
 <style scoped lang="scss">
@@ -72,7 +81,7 @@ const logout = () => {
       display: flex;
       justify-content: space-between;
       align-items: center;
-
+      cursor: pointer;
       img {
         width: 70px;
         height: 70px;

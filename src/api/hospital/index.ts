@@ -6,6 +6,7 @@ import type {
   RegisterData,
   HospitalArrangeListData,
   UserResponseData,
+  DoctorData,
 } from "@/api/hospital/type";
 
 enum API {
@@ -19,6 +20,9 @@ enum API {
 
   //就诊人
   getVisitors = "/user/patient/auth/findAll",
+
+  // 获取医生信息
+  getDoctorInfo = "/hosp/hospital/getSchedule/",
 }
 
 export const reqHospital = (hoscode: string) => {
@@ -52,4 +56,8 @@ export const reqHospitalBookingScheduleLists = (
 
 export const reqHospitalVisitors = () => {
   return request.get<string, UserResponseData>(API.getVisitors);
+};
+
+export const reqHospitalDoctorInfo = (scheduleId: string) => {
+  return request.get<string, DoctorData>(API.getDoctorInfo + scheduleId);
 };

@@ -16,10 +16,10 @@
       <div class="user">
         <Visitor
           @click=""
-          v-for="(user, index) in 4"
+          v-for="user in userArr"
           class="item"
           :user="user"
-          :index="index"
+          :index="user.id"
           :currentIndex="currentIndex"
         />
       </div>
@@ -36,45 +36,40 @@
       <el-descriptions class="margin-top" :column="2">
         <el-descriptions-item>
           <template #label>
-            <div class="cell-item">就诊日期:</div>
+            <div class="cell-item">就诊日期: {{ docInfo.workDate }}</div>
           </template>
-          {{ docInfo.workDate }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
-            <div class="cell-item">就诊医院:</div>
+            <div class="cell-item">就诊医院: {{ docInfo.param?.hosname }}</div>
           </template>
-          {{ docInfo.param?.hosname }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
-            <div class="cell-item">就诊科室:</div>
+            <div class="cell-item">就诊科室: {{ docInfo.param?.depname }}</div>
           </template>
-          {{ docInfo.param?.depname }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
-            <div class="cell-item">医生姓名:</div>
+            <div class="cell-item">医生姓名: {{ docInfo.docname }}</div>
           </template>
-          {{ docInfo.docname }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
-            <div class="cell-item">医生职称:</div>
+            <div class="cell-item">医生职称:{{ docInfo.title }}</div>
           </template>
-          {{ docInfo.title }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
-            <div class="cell-item">医生专长:</div>
+            <div class="cell-item">医生专长:{{ docInfo.skill }}</div>
           </template>
-          {{ docInfo.skill }}
         </el-descriptions-item>
         <el-descriptions-item>
           <template #label>
-            <div class="cell-item">医生服务器:</div>
+            <div class="cell-item">
+              医生服务器: <span style="color: red">{{ docInfo.amount }}</span>
+            </div>
           </template>
-          <span style="color: red">{{ docInfo.amount }}</span>
         </el-descriptions-item>
       </el-descriptions>
     </el-card>
@@ -92,24 +87,30 @@
 </template>
 
 <script setup lang="ts">
-import Visitor from "@/pages/Hospital/appointment_register/visitor.vue";
+import Visitor from "@/pages/hospital/appointment_register/visitor.vue";
 import { User } from "@element-plus/icons-vue";
 //引入获取就诊人信息接口
-import { reqHospitalVisitors } from "@/api/hospital";
-import type { userResponseData, userArr } from "@/api/hospital/type";
+import { reqHospitalVisitors, reqHospitalDoctorInfo } from "@/api/hospital";
+import type {
+  UserResponseData,
+  UserArr,
+  DoctorData,
+  DoctorInfo,
+} from "@/api/hospital/type";
 import {} from "@/api/user";
 import type {} from "@/api/user/type";
 import { onMounted, ref } from "vue";
 
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 //@ts-ignore
 import { ElMessage } from "element-plus";
 //获取路由对象
 let $route = useRoute();
+
 //存储医生的信息
-let docInfo = ref<any>({});
+let docInfo = ref({} as DoctorInfo);
 //获取路由器对象
-let $router = useRouter();
+// let $router = useRouter();
 
 //存储用户确定就诊人索引值
 let currentIndex = ref<number>(-1);
@@ -118,12 +119,22 @@ let currentIndex = ref<number>(-1);
 //组件挂载完毕获取数据
 onMounted(() => {
   getVisitors();
+  getDoctorInfo();
 });
-let UserArr = ref([] as userArr);
+
+let userArr = ref([] as UserArr);
 const getVisitors = async () => {
-  let res: userResponseData = await reqHospitalVisitors();
+  let res: UserResponseData = await reqHospitalVisitors();
   if ((res.code = 200)) {
-    UserArr.value = res.data;
+    userArr.value = res.data;
+  }
+};
+const getDoctorInfo = async () => {
+  let result: DoctorData = await reqHospitalDoctorInfo(
+    $route.query.docId as string
+  );
+  if ((result.code = 200)) {
+    docInfo.value = result.data;
   }
 };
 </script>
